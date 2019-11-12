@@ -20,7 +20,9 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements Tab1Fragment.OnMyListener , Tab2Fragment.OnMyListener, Tab3Fragment.OnMyListener, Tab4Fragment.OnMyListener, Tab5Fragment.OnMyListener{
+public class MainActivity extends AppCompatActivity implements
+        Tab1Fragment.OnMyListener, Tab2Fragment.OnMyListener,
+        Tab3Fragment.OnMyListener, Tab4Fragment.OnMyListener, Tab5Fragment.OnMyListener  {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private SlidingUpPanelLayout mLayout;
 
@@ -31,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements Tab1Fragment.OnMy
     //
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
+
+    String search_name;
+    int category;
+
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements Tab1Fragment.OnMy
             mLayout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
 
         }
+//
+        // position  = tabLayout.getSelectedTabPosition();
+        // category = mViewPager.getAdapter().getPageTitle(position).toString();
+
+
 
     }
 
@@ -67,15 +78,28 @@ public class MainActivity extends AppCompatActivity implements Tab1Fragment.OnMy
         viewPager.setAdapter(adapter);
     }
     //
+
     public void onReceivedData(Object data){
         Intent intent = new Intent(this, DetailActivity.class);
         String datas[] = (String[])data;
-        intent.putExtra("img",datas[0]);
+        intent.putExtra("img", datas[0]);
         intent.putExtra("name",datas[1]);
         intent.putExtra("price",datas[2]);
         intent.putExtra("category",datas[3]);
         intent.putExtra("country",datas[4]);
         startActivity(intent);
-
     }
+
+    public void goData(String text, int i)
+    {
+        search_name= text;
+        category = i;
+
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("search_name", search_name);
+        intent.putExtra("category", category);
+        startActivity(intent);
+    }
+
+
 }

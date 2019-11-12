@@ -35,7 +35,7 @@ public class Tab3Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab1_fragment, container, false);
+        view = inflater.inflate(R.layout.tab_fragment, container, false);
 
         //int position = tabLayout.getSelectedTabPosition();
         // String category = mViewPager.getAdapter().getPageTitle(position).toString();

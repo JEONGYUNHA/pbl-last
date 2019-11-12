@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +22,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-
 public class Tab1Fragment extends Fragment {
     private static final String TAG = "Tab1Fragment";
 
@@ -29,16 +30,32 @@ public class Tab1Fragment extends Fragment {
     private GridView mGrid;
     private MyAdapter mAdapter;
     View view;
+
+    private EditText search_name;
+    private Button search_btn;
+    private int category_num = 1;
+
     Context ctx;
+
     int count = 0;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab_fragment, container, false);
-
         ctx = this.getActivity();
 
+        //int position = tabLayout.getSelectedTabPosition();
+        // String category = mViewPager.getAdapter().getPageTitle(position).toString();
+
+        menu();
+        return view;
+
+
+    }
+
+    public void menu() {
         String category = "채소";
         db.collection("datas")
                 .whereEqualTo("category", category)
@@ -48,18 +65,29 @@ public class Tab1Fragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (count == 0) {
+                                if (count == 0)
                                     mData.add(new MyData(document.get("img").toString(), document.get("name").toString(), Integer.parseInt(document.get("price").toString())));
-                                }
                             }
                             upload();
+                            sOnClick();
                             count++;
                         } else {
 
                         }
                     }
                 });
-        return view;
+    }
+
+    //전체검색, 카테고리별 검색
+    public void sOnClick(){
+        search_name = (EditText) getView().findViewById(R.id.search_name);
+        search_btn = (Button) getView().findViewById(R.id.search_btn);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).goData(search_name.getText().toString(), category_num);
+            }
+        });
     }
 
     public void upload() {
@@ -71,6 +99,7 @@ public class Tab1Fragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 position %= mData.size();
                 itemView(mData.get(position).name);
+                //Toast.makeText(MainActivity.this, mData.get(position).name + " 선택!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -84,8 +113,6 @@ public class Tab1Fragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-
-
                                 String datas[] = new String[5];
                                 datas[0] = document.get("img").toString();
                                 datas[1] = document.get("name").toString();
@@ -95,8 +122,10 @@ public class Tab1Fragment extends Fragment {
 
                                 if (mOnMyListener != null)
                                     mOnMyListener.onReceivedData(datas);
+
                             }
                         } else {
+                            //Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -104,7 +133,7 @@ public class Tab1Fragment extends Fragment {
 
     public interface OnMyListener {
         void onReceivedData(Object data);
-}
+    }
 
     private OnMyListener mOnMyListener;
 

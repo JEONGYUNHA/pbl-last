@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 
 import androidx.annotation.NonNull;
@@ -30,15 +32,32 @@ public class Tab4Fragment extends Fragment {
     private GridView mGrid;
     private MyAdapter mAdapter;
     View view;
-    int count=0;
+
+    private EditText search_name;
+    private Button search_btn;
+    private int category_num = 1;
+
+    Context ctx;
+
+    int count = 0;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab_fragment, container, false);
+        ctx = this.getActivity();
 
         //int position = tabLayout.getSelectedTabPosition();
         // String category = mViewPager.getAdapter().getPageTitle(position).toString();
+
+        menu();
+        return view;
+
+
+    }
+
+    public void menu() {
         String category = "정육/계란";
         db.collection("datas")
                 .whereEqualTo("category", category)
@@ -48,20 +67,29 @@ public class Tab4Fragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // document.getId() -> document 이름, document.getData() -> document의 모든 정보
-                                /*test.append(document.getId() + " + " + document.getData().toString());*/
-                                if(count==0) {
+                                if (count == 0)
                                     mData.add(new MyData(document.get("img").toString(), document.get("name").toString(), Integer.parseInt(document.get("price").toString())));
-                                }
                             }
                             upload();
+                            sOnClick();
                             count++;
                         } else {
 
                         }
                     }
                 });
-        return view;
+    }
+
+    //전체검색, 카테고리별 검색
+    public void sOnClick(){
+        search_name = (EditText) getView().findViewById(R.id.search_name);
+        search_btn = (Button) getView().findViewById(R.id.search_btn);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).goData(search_name.getText().toString(), category_num);
+            }
+        });
     }
 
     public void upload() {
@@ -94,25 +122,29 @@ public class Tab4Fragment extends Fragment {
                                 datas[3] = document.get("category").toString();
                                 datas[4] = document.get("country").toString();
 
-                                if(mOnMyListener!=null)
+                                if (mOnMyListener != null)
                                     mOnMyListener.onReceivedData(datas);
+
                             }
                         } else {
+                            //Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-    public interface OnMyListener{
+    public interface OnMyListener {
         void onReceivedData(Object data);
     }
+
     private Tab1Fragment.OnMyListener mOnMyListener;
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
-        if(getActivity()!=null&&getActivity() instanceof Tab1Fragment.OnMyListener){
+        if (getActivity() != null && getActivity() instanceof Tab1Fragment.OnMyListener) {
             mOnMyListener = (Tab1Fragment.OnMyListener) getActivity();
         }
     }
+
 }

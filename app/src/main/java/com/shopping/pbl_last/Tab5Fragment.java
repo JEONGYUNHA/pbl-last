@@ -109,6 +109,7 @@ public class Tab5Fragment extends Fragment {
 
     @Override
     public void onAttach(Context context){
+
         super.onAttach(context);
         if(getActivity()!=null&&getActivity() instanceof Tab1Fragment.OnMyListener){
             mOnMyListener = (Tab1Fragment.OnMyListener) getActivity();

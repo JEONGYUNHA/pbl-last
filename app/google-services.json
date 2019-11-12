@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "445619008210",
+    "firebase_url": "https://shopping-pbl.firebaseio.com",
+    "project_id": "shopping-pbl",
+    "storage_bucket": "shopping-pbl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445619008210:android:6f633aac26dcbdc280730b",
+        "android_client_info": {
+          "package_name": "com.codingdemos.tablayout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445619008210-grb41drp7u2kino386o0v2sum91td0qn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGxGmdMk109ajQRYsyKmveEq6SKNkuqA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445619008210-grb41drp7u2kino386o0v2sum91td0qn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445619008210:android:a51b8a54c5548f3680730b",
+        "android_client_info": {
+          "package_name": "com.shopping.pbl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445619008210-grb41drp7u2kino386o0v2sum91td0qn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGxGmdMk109ajQRYsyKmveEq6SKNkuqA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445619008210-grb41drp7u2kino386o0v2sum91td0qn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445619008210:android:6a321517c5ce775480730b",
+        "android_client_info": {
+          "package_name": "com.shopping.pbl_last"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445619008210-grb41drp7u2kino386o0v2sum91td0qn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGxGmdMk109ajQRYsyKmveEq6SKNkuqA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445619008210-grb41drp7u2kino386o0v2sum91td0qn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
